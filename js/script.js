@@ -92,11 +92,7 @@ function onAPISucces(response) {
 
   var weatherBox = document.getElementById('weatherNotice');
   var weatherList = response.list[0];
-//console.log(weatherList);
 
-
-
-    //console.log(weatherList[i].main.temp - 273.15);
     var weather= weatherList.weather[0].main;
     var temp = Math.floor(weatherList.main.temp - 273.15);
     var iconUrl = 'http://openweathermap.org/img/w/'+weatherList.weather[0].icon+'.png';
@@ -105,8 +101,6 @@ function onAPISucces(response) {
     forecastMessage +=   '<div class="temp"> '+temp+'&#176;C </div>';
     forecastMessage +=   '<div class="icon"> <img src="'+iconUrl+'"> </div>';
     forecastMessage += '</div>';
-
-
     weatherBox.innerHTML = forecastMessage;
   }
 
@@ -356,11 +350,7 @@ var icon = {
 
 
 
-var request ={
-    location: malie_veld,
-    radius: '5000',
-    query: 'restaurant'
-  };
+
 
   var infowindow = new google.maps.InfoWindow();
   restaurantInfoWindows= new google.maps.InfoWindow({maxWidth:300});
@@ -381,7 +371,6 @@ var request ={
           title: "Malie Veld",
           icon: icon
             });
-            //var title = marker.title;
             google.maps.event.addListener(marker, 'click', function() {
     infowindow.open(map, marker);
     map.setCenter(marker.getPosition());
@@ -401,7 +390,7 @@ var request ={
         });
       }
 
-
+//callback voor markers maken
       function callback(results, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           for (var i = 0; i < results.length; i++) {
@@ -409,7 +398,7 @@ var request ={
           }
         }
       }
-
+//restaurant markers maken
       function createMarker(place) {
         var placeLoc = place.geometry.location;
         var restaurantIcon = {
@@ -433,7 +422,6 @@ var request ={
      '<div id="restaurantLocation">' + '<img id="restaurantImage" src="'+ place.photos[0].getUrl({'maxWidth': 250, 'maxHeight': 250}) + '">' + '</div>' +        
      '</div>' +
       '</div>'
-            //place.name + place.photos[0].getUrl({'maxWidth': 250, 'maxHeight': 250})
             );
           restaurantInfoWindows.open(map, this);
         });

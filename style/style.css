@@ -18,12 +18,12 @@ background-color: #C9CBCC;
   grid-row-gap: 0px;
   margin:0;  
   display:grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(2,1fr);
   grid-template-rows: 0.75fr 4fr auto;
   grid-template-areas: 
-  "header header header "
-  "map map map "
-  "footer footer footer ";
+  "header header "
+  "map map"
+  "footer footer";
 }
 
 /*--------header-------*/
@@ -105,7 +105,7 @@ h1 {
 .landingZoneContent{
   color: black;
   display: grid;
-  grid-template-rows: 1fr 2fr;
+  grid-template-rows: 1fr 4fr;
   grid-template-columns: 1fr 4fr;
     grid-column-gap: 2px;
   grid-row-gap:2px;
@@ -113,6 +113,7 @@ grid-template-areas:
 "weatherNotice contentHeader"
 "bodycontent bodycontent"
 }
+
 
 #contentHeader{
   display:flex;
@@ -126,7 +127,7 @@ grid-template-areas:
 #bodyContent{
   grid-area:bodycontent;
   display:grid;
-    grid-template-rows: 2fr 1fr;
+    grid-template-rows: 1fr 2fr;
   grid-template-columns: 1fr;
   grid-template-areas: 
   "airQuality"
@@ -141,6 +142,31 @@ grid-template-areas:
 
 #location{
   grid-area:location;
+  display: grid;
+  grid-template-rows: 1fr 0.5fr 2fr;
+  grid-template-areas: 
+  "title"
+  "adres"
+  "image"
+}
+
+.adres{
+  grid-area:title;
+}
+
+#adresGegevens{
+  grid-area:adres;
+    display: flex;
+  justify-self: center;
+  align-self: center;
+}
+
+#location img{
+  max-width: 100% !important;
+  grid-area:image;
+  display: flex;
+  justify-self: center;
+  align-self: center;
 }
 
 #bodyContent h1{
@@ -198,6 +224,43 @@ grid-template-areas:
   border: 0 !important;
 }
 
+.restaurantContent{
+  color: black;
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+  grid-template-columns: 1fr;
+    grid-column-gap: 2px;
+  grid-row-gap:2px;
+grid-template-areas: 
+"restaurantContentHeader"
+"restaurantBodycontent"
+}
+
+#restaurantContentHeader{
+  color:black;
+  display:flex;
+  justify-content: center;
+  align-items: center;  
+    grid-area:restaurantContentHeader;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 20px;  
+}
+#restaurantBodyContent{
+  grid-area:restaurantBodycontent;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+}
+
+
+#restaurantLocation img{
+  max-width: 100% !important;
+  display: flex;
+  justify-self: center;
+  align-self: center;
+}
 
 /*--------------------Footer--------------------------*/
 
@@ -205,4 +268,59 @@ footer{
 height:100px;
 grid-area:footer;
 background-color: #222222;
+}
+
+
+/*------------------mediaQueries------------------*/
+/*###########Medium Screen########################*/
+@media only screen and (min-width: 768px) {
+body{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-template-rows: 0.75fr 4fr auto;
+  grid-row-gap: 0px;
+  margin:0;
+
+  
+  grid-template-areas:
+  "header header header"
+  "map map map"
+  "footer footer footer";
+}
+
+
+/*--------------------Footer--------------------------*/
+
+footer{
+  height:150px;
+}
+
+}
+
+/*#############Big screen###########*/
+
+@media only screen and (min-width: 1200px) {
+body{
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  grid-template-rows: 85px 1fr 77px;
+  grid-row-gap: 0px;
+  margin:0;
+
+  
+  grid-template-areas:
+  "header header header header header"
+  "map map map map map"
+  "footer footer footer footer footer";
+}
+
+
+
+
+/*--------------------Footer--------------------------*/
+
+footer{
+height: auto;
+}
+
 }

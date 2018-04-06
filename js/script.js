@@ -125,6 +125,8 @@ function updateUIError() {
 /*----------------google maps--------------------*/
 
 var map;
+var service;
+var restaurantInfoWindows;
 
 function initMap() {
   var malie_veld= {lat:52.085519,  lng:4.319601}; 
@@ -361,9 +363,12 @@ var request ={
   };
 
   var infowindow = new google.maps.InfoWindow();
-
-
+  restaurantInfoWindows= new google.maps.InfoWindow({maxWidth:300});
         var service = new google.maps.places.PlacesService(map);
+  service.nearbySearch({
+        location: malie_veld,
+    radius: 2500,
+    type: ['restaurant']}, callback);
 
 
         service.getDetails({
@@ -378,20 +383,17 @@ var request ={
             });
             //var title = marker.title;
             google.maps.event.addListener(marker, 'click', function() {
-
     infowindow.open(map, marker);
-    map.setZoom(16);
     map.setCenter(marker.getPosition());
     getWeatherAPIdata();
     getAirAPIdata();
-    //document.getElementById('contentHeader').innerHTML= title;
     infowindow.setContent('<div class="landingZoneContent">' +
       '<div id="weatherNotice">' +
       '</div>' +
       '<h1 id="contentHeader">'+ place.name + '</h1>' +
       '<div id="bodyContent">' +
         '<div id="airQuality"></div>' +
-     '<div id="location">' + '<h1 class="contentTitle">Adres</h1>' + place.formatted_address + '</div>' +        
+     '<div id="location">' + '<h1 class="contentTitle adres">Adres</h1>' +'<div id="adresGegevens">'+ place.formatted_address + '</div>' + '<img id="image" src="'+ place.photos[0].getUrl({'maxWidth': 250, 'maxHeight': 250}) + '">' + '</div>' +        
      '</div>' +
       '</div>');
             });
@@ -400,7 +402,39 @@ var request ={
       }
 
 
+      function callback(results, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          for (var i = 0; i < results.length; i++) {
+            createMarker(results[i]);
+          }
+        }
+      }
 
+      function createMarker(place) {
+        var placeLoc = place.geometry.location;
+        var restaurantIcon = {
+  url: "images/food.svg",
+  size: new google.maps.Size(71, 71),
+  origin: new google.maps.Point(0, 0),
+  anchor: new google.maps.Point(25, 25),
+  scaledSize: new google.maps.Size(50, 50)
+};
+        var marker = new google.maps.Marker({
+          map: map,
+          icon: restaurantIcon,
+          position: place.geometry.location
+        });
 
-
-
+        google.maps.event.addListener(marker, 'click', function() {
+          restaurantInfoWindows.setContent(
+'<div class="restaurantContent">' +
+      '<h1 id="restaurantContentHeader">'+ place.name + '</h1>' +
+      '<div id="restaurantBodyContent">' +
+     '<div id="restaurantLocation">' + '<img id="restaurantImage" src="'+ place.photos[0].getUrl({'maxWidth': 250, 'maxHeight': 250}) + '">' + '</div>' +        
+     '</div>' +
+      '</div>'
+            //place.name + place.photos[0].getUrl({'maxWidth': 250, 'maxHeight': 250})
+            );
+          restaurantInfoWindows.open(map, this);
+        });
+      }

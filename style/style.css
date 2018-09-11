@@ -89,7 +89,7 @@ h1 {
   grid-area: map;
   margin: 0 auto;
   width: 100%;
-  height: 75vh;
+  height: auto;
   padding:0px;
 
 }
@@ -301,9 +301,10 @@ footer{
 
 @media only screen and (min-width: 1200px) {
 body{
+  height: 100vh;
   display: grid;
   grid-template-columns: repeat(5,1fr);
-  grid-template-rows: 85px 1fr 77px;
+  grid-template-rows: 85px 1fr 85px;
   grid-row-gap: 0px;
   margin:0;
 
@@ -320,7 +321,12 @@ body{
 /*--------------------Footer--------------------------*/
 
 footer{
-height: auto;
+  left: 0;
+bottom: 0;
+width: 100%;
+height:100%;
+/*height: auto;*/
+
 }
 
 }
